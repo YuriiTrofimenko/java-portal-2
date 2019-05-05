@@ -48,6 +48,7 @@ public class ObjectifyListener implements ServletContextListener{
                     ObjectifyService.init(new ObjectifyFactory(
                             DatastoreOptions.getDefaultInstance().getService()
                     ));
+                    // ObjectifyService.init();
                 }
             } catch (Exception ex) {
                 log.log(Level.SEVERE, ErrorsGetter.printException(ex));

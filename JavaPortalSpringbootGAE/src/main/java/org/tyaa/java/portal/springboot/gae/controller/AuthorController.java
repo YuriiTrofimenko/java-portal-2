@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tyaa.java.portal.datastore.model.Author;
+import org.tyaa.java.portal.datastore.model.AuthorFlavour;
+import org.tyaa.java.portal.datastore.model.AuthorResponse;
 import org.tyaa.java.portal.datastore.model.JsonHttpResponse;
 import org.tyaa.java.portal.springboot.gae.service.AuthorService;
 
@@ -55,5 +57,17 @@ public class AuthorController {
     public JsonHttpResponse delete(@PathVariable("id") Long _id) {
         
         return authorService.delete(_id);
+    }
+    
+    /* @GetMapping("/all")
+    public List<AuthorFlavour> getAllFlavour() {
+        
+        return (List<AuthorFlavour>)authorService.readFlavour().data;
+    } */
+    
+    @GetMapping("/flavour")
+    public AuthorResponse getAllFlavour() {
+        
+        return authorService.readFlavour();
     }
 }

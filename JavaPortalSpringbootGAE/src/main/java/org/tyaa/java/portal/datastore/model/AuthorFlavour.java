@@ -5,13 +5,13 @@
  */
 package org.tyaa.java.portal.datastore.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import java.io.Serializable;
+//import java.util.Collection;
 import java.util.Date;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,25 +21,26 @@ import lombok.Setter;
  *
  * @author student
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(Include.NON_NULL)
-@Entity
 @Getter @Setter @NoArgsConstructor
-public class Article {
-    @Id
+public class AuthorFlavour implements Serializable{
     private Long id;
-    @Index
-    private String title;
-    private String content;
-    private String image;
-    private Date publishedAt;
-    @Index
-    private Author authorId;
-
-    public Article(String title, String content, String image, Date publishedAt) {
-        this.title = title;
-        this.content = content;
-        this.image = image;
-        this.publishedAt = publishedAt;
+    private String name;
+    private String about;
+    private String startedAt;
+    //
+    //private Collection<Article> articlesCollection;
+        
+    public AuthorFlavour(Long id, String name, String about, String startedAt) {
+        this.id = id;
+        this.name = name;
+        this.about = about;
+        this.startedAt = startedAt;
     }
+
+    @Override
+    public String toString() {
+        return "AuthorFlavour{" + "id=" + id + ", name=" + name + ", about=" + about + ", startedAt=" + startedAt + '}';
+    }
+    
+    
 }

@@ -1,0 +1,22 @@
+<h2>Authors:</h2>
+<table>
+  <thead>
+    <tr>
+        <th>#</th>
+        <th>id</th>
+        <th>name</th>
+        <th>about</th>
+        <th>started at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <std:foreach var="author" index="index" in="authors">
+      <tr attr:class="index % 2 == 0 ? 'even' : 'odd'">
+        <td align="right"><html:text value="index + 1"/></td>
+        <td><html:text value="author.id"/></td>
+        <td><html:text value="author.name"/></td>
+        <td><html:text value="author.about"/></td>
+        <td><html:text value="author.startedAt"/></td>
+      </tr>
+    </std:foreach>
+</table>

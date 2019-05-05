@@ -5,9 +5,15 @@
  */
 package org.tyaa.java.portal.springboot.gae.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tyaa.java.portal.datastore.model.Author;
+import org.tyaa.java.portal.datastore.model.AuthorFlavour;
+import org.tyaa.java.portal.datastore.model.AuthorResponse;
 import org.tyaa.java.portal.datastore.model.JsonHttpResponse;
 import org.tyaa.java.portal.springboot.gae.dao.AuthorDataStoreDAO;
 
@@ -101,4 +107,24 @@ public class AuthorService implements IAuthorService {
         );
     }
     
+    public AuthorResponse readFlavour() {
+        
+        AuthorResponse resp = new AuthorResponse(
+                JsonHttpResponse.fetchedStatus
+                , "The authors list fetched successfully"
+                , authorDAO.read().stream().map((a) -> {
+                    AuthorFlavour af =
+                        new AuthorFlavour(
+                            a.getId()
+                            , a.getName()
+                            , a.getAbout()
+                            , (a.getStartedAt() != null)
+                                ? new SimpleDateFormat("dd-MM-yyyy").format(a.getStartedAt())
+                                : new SimpleDateFormat("dd-MM-yyyy").format(new Date())
+                        );
+                    return af;
+                }).collect(Collectors.toList())
+        );
+        return resp;
+    }
 }
