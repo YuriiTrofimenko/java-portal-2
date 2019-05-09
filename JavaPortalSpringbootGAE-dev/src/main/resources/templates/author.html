@@ -1,0 +1,78 @@
+<?import org.teavm.flavour.validation.Converter?>
+<?use w:org.teavm.flavour.widgets?>
+<?use v:org.teavm.flavour.validation?>
+<v:validator as="validator">
+    <v:validation of="author.name" as="nameField" convert="Converter.stringFormat()">
+        <v:check rule="not it.empty" as="nameNotEmpty"/>
+        <v:check rule="it.length() < 50" as="nameNotTooLong"/>
+    </v:validation>
+    <v:validation of="author.about" as="aboutField" convert="Converter.stringFormat()">
+        <v:check rule="not it.empty" as="aboutNotEmpty"/>
+        <v:check rule="it.length() < 255" as="aboutNotTooLong"/>
+    </v:validation>
+    <v:validation of="author.startedAt" as="startedAtField" convert="Converter.shortDateFormat()">
+        <v:check rule="it != null" as="startedAtNotNull"/>
+    </v:validation>
+    <div class="container-fluid">
+        <div class="row">
+            <h2>Create New Author:</h2>
+            <form>
+                <div class="form-group" attr:class="nameField.valid ? 'form-group' : 'form-group has-error'">
+                    <label>Name</label>
+                    <input type="text" class="form-control" v:bind="nameField"/>
+                    <std:if condition="not nameNotEmpty">
+                        <span class="help-block">Name is required</span>
+                    </std:if>
+                    <std:if condition="not nameNotTooLong">
+                        <span class="help-block">Name must be at most 50 characters long</span>
+                    </std:if>
+                </div>
+
+                <div class="form-group" attr:class="aboutField.valid ? 'form-group' : 'form-group has-error'">
+                    <label>About</label>
+                    <input type="text" class="form-control" v:bind="aboutField"/>
+                    <std:if condition="not aboutNotEmpty">
+                        <span class="help-block">About is required</span>
+                    </std:if>
+                    <std:if condition="not aboutNotTooLong">
+                        <span class="help-block">About must be at most 255 characters long</span>
+                    </std:if>
+                </div>
+
+                <div class="form-group" attr:class="startedAtField.valid ? 'form-group' : 'form-group has-error'">
+                    <label>Started at</label>
+                    <input type="text" class="form-control" v:bind="startedAtField" w:date="{ format: 'short' }"/>
+                    <std:if condition="not startedAtNotNull">
+                        <span class="help-block">Started at is required</span>
+                    </std:if>
+                </div>
+                
+                <button type="button" class="btn btn-primary" event:click="validator.submit(() -> save())" html:enabled="validator.valid">Save</button>
+            </form>
+        </div>
+        <div>
+            <h2>Authors:</h2>
+            <table>
+              <thead>
+                <tr>
+                    <th>#</th>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>about</th>
+                    <th>started at</th>
+                </tr>
+              </thead>
+              <tbody>
+                <std:foreach var="author" index="index" in="authors">
+                  <tr attr:class="index % 2 == 0 ? 'even' : 'odd'">
+                    <td align="right"><html:text value="index + 1"/></td>
+                    <td><html:text value="author.id"/></td>
+                    <td><html:text value="author.name"/></td>
+                    <td><html:text value="author.about"/></td>
+                    <td><html:text value="author.startedAt"/></td>
+                  </tr>
+                </std:foreach>
+            </table>
+        </div>
+    </div>
+</v:validator>
