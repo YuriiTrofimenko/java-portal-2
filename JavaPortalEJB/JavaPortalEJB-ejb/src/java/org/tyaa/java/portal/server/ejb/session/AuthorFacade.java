@@ -15,7 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.tyaa.java.portal.server.ejb.entity.Author;
-import org.tyaa.java.portal.server.ejb.entity.Author_;
+// import org.tyaa.java.portal.server.ejb.entity.Author_;
 import org.tyaa.java.portal.server.ejb.entity.projections.AuthorProjection;
 
 /**
@@ -46,9 +46,9 @@ public class AuthorFacade extends AbstractFacade<Author> {
         cq.select(
                 cb.construct(
                         AuthorProjection.class
-                        , root.get(Author_.id)
-                        , root.get(Author_.name)
-                        , root.get(Author_.startedAt)
+                        , root.get("id")
+                        , root.get("name")
+                        , root.get("startedAt")
                 )
         );
         TypedQuery<AuthorProjection> q = getEntityManager().createQuery(cq);
@@ -63,9 +63,9 @@ public class AuthorFacade extends AbstractFacade<Author> {
         cq.select(
                 cb.construct(
                         AuthorProjection.class
-                        , root.get(Author_.id)
-                        , root.get(Author_.name)
-                        , root.get(Author_.about)
+                        , root.get("id")
+                        , root.get("name")
+                        , root.get("about")
                 )
         );
         TypedQuery<AuthorProjection> q = getEntityManager().createQuery(cq);
