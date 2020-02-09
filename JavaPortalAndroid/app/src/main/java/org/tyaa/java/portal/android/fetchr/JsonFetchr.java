@@ -34,7 +34,7 @@ public class JsonFetchr implements IFetchr {
         mFetchedDataHandler = _fetchedDataHandler;
         mJsonParser = new JsonParser();
         mBaseUrl =
-                ((Context)mFetchedDataHandler).getResources().getString(R.string.avd_base_url);
+                ((Context)mFetchedDataHandler).getResources().getString(R.string.geny_base_url);
     }
 
     @Override

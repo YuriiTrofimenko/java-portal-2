@@ -3,5 +3,7 @@
     <!--<string name="genymotion_base_url">http://10.0.3.2:8080/JavaPortalEJB-war/api/</string>-->
     <!--<string name="avd_base_url">http://10.0.2.2:8080/JavaPortalEJB-war/api/</string>-->
     <!--<string name="gae_base_url">https://spring-gae-datastore.appspot.com/api/</string>-->
-    <string name="avd_base_url">https://spring-gae-datastore.appspot.com/api/</string>
+    <string name="avd_base_remote_url">https://spring-gae-datastore.appspot.com/api/</string>
+    <string name="geny_base_url">http://10.0.3.2:8081/api/</string>
+    <string name="avd_base_url">http://10.0.2.2:8081/api/</string>
 </resources>
