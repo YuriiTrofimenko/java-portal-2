@@ -29,6 +29,7 @@ public class Author {
     private org.tyaa.java.portal.datastore.model.Author author =
         new org.tyaa.java.portal.datastore.model.Author();
     private AuthorService authorService;
+    private Boolean loading = false;
     
     public Author(){
         
@@ -38,37 +39,45 @@ public class Author {
         loadAuthors();
         
     }
-    
+
+    public Boolean getLoading() {
+        return loading;
+    }
+
+    public void setLoading(Boolean loading) {
+        this.loading = loading;
+    }
+
     private void loadAuthors() {
-    
-        background.run(() -> {
+        this.setLoading(true);
+        this.background.run(() -> {
             try {
                 AuthorResponse authorsResponse = authorService.getAuthors();
                 List<AuthorFlavour> authors =
                         (List<AuthorFlavour>)authorsResponse.getData();
                 if (authors != null) {
+                    this.authors.clear();
                     this.authors.addAll(authors);
                 } else {
                     System.out.println(authorsResponse.getMessage());
                 }
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
+            } finally {
+                this.setLoading(false);
             }
         });
     }
     
     public List<AuthorFlavour> getAuthors() {
-                
         return authors;
     }
     
     public org.tyaa.java.portal.datastore.model.Author getAuthor() {
-                
         return author;
     }
     
     public void save() {
-    
         AuthorFlavour authorFlavour =
             new AuthorFlavour(
                 author.getName()
@@ -77,11 +86,20 @@ public class Author {
             );
         background.run(() -> {
             try {
-                authorService.create(authorFlavour);
+                JsonHttpResponse response =
+                    authorService.create(authorFlavour);
+                System.out.println(response.message);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             } finally {
-                this.authors.clear();
+                /* try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } */
+                /* while (background.isBusy()) {
+
+                } */
                 loadAuthors();
             }
         });

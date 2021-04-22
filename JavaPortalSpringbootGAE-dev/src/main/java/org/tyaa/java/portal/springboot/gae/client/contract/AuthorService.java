@@ -34,5 +34,5 @@ public interface AuthorService {
     @Path("create")
     @Consumes("application/json")
     @Produces("application/json")
-    int create(AuthorFlavour authorFlavour);
+    JsonHttpResponse create(AuthorFlavour authorFlavour);
 }

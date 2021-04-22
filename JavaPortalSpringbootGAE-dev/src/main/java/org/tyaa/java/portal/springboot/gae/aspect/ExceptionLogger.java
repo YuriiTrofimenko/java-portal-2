@@ -35,7 +35,8 @@ public class ExceptionLogger {
         try {
             output = pjp.proceed();
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, ErrorsGetter.printException(ex));
+            ex.printStackTrace();
+            // logger.log(Level.SEVERE, ErrorsGetter.printException(ex));
             throw ex;
         }
         return output;

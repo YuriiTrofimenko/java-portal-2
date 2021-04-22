@@ -37,7 +37,7 @@ public class ObjectifyListener implements ServletContextListener{
                     ObjectifyService.init(new ObjectifyFactory(
                             DatastoreOptions.newBuilder()
                                     .setHost("http://localhost:8484")
-                                    .setProjectId("spring-gae-datastore")
+                                    .setProjectId("spring-gae-datastore-2")
                                     .build()
                                     .getService()
                     ));
